@@ -1,0 +1,29 @@
+
+					SELECT DISTINCT ar_payment_schedules_all.ORG_ID,
+				  HZ_CUST_ACCOUNTS.ACCOUNT_NUMBER,
+				  HZ_CUST_ACCOUNTS.ACCOUNT_NAME,
+				  HZ_CUST_SITE_USES_ALL.LOCATION,
+				  ra_customer_trx_all.TRX_NUMBER,
+				  ar_payment_schedules_all.TRX_DATE,
+				  ar_payment_schedules_all.AMOUNT_DUE_ORIGINAL,
+				  ar_payment_schedules_all.CLASS,
+				  substr(ra_customer_trx_all.TRX_NUMBER,0,3) as TRX_NUMBER_STORECODE,
+				  to_char(ar_payment_schedules_all.TRX_DATE,'YYMMDD') as TRX_DATE_CHAR
+					FROM ((ar_payment_schedules_all
+					LEFT JOIN ra_customer_trx_all
+					ON ar_payment_schedules_all.CUSTOMER_TRX_ID = ra_customer_trx_all.CUSTOMER_TRX_ID)
+					INNER JOIN HZ_CUST_ACCOUNTS
+					ON ar_payment_schedules_all.CUSTOMER_ID = HZ_CUST_ACCOUNTS.CUST_ACCOUNT_ID)
+					INNER JOIN HZ_CUST_SITE_USES_ALL
+					ON ar_payment_schedules_all.CUSTOMER_SITE_USE_ID   = HZ_CUST_SITE_USES_ALL.SITE_USE_ID
+					WHERE ar_payment_schedules_all.ORG_ID  IN (113,  153)
+					AND HZ_CUST_ACCOUNTS.ACCOUNT_NUMBER = '104671'
+					and ar_payment_schedules_all.TRX_DATE BETWEEN to_date('01-Jul-2015')  AND to_date('30-Nov-2015') 
+					and ar_payment_schedules_all.CLASS = 'INV'
+					and HZ_CUST_SITE_USES_ALL.LOCATION = 'NENEM'
+					AND ra_customer_trx_all.TRX_NUMBER = '856' || to_char(ar_payment_schedules_all.TRX_DATE,'YYMMDD')
+					order by ar_payment_schedules_all.TRX_DATE , HZ_CUST_SITE_USES_ALL.LOCATION
+		
+    
+    
+				

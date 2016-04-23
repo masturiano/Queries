@@ -1,0 +1,53 @@
+SELECT     tblStsDlyArHist.suppCode,tblTransType.typePrefix + CAST(tblStsDlyArHist.stsNo AS nvarchar) + '-' + CAST(tblStsDlyArHist.stsSeq AS nvarchar) AS invoice,
+tblStsDlyArHist.strCode,tblStsDlyArHist.stsApplyAmt,tblStsDlyArHist.uploadDate
+FROM         tblStsDlyArHist LEFT OUTER JOIN
+                      tblTransType ON tblTransType.typeCode = tblStsDlyArHist.stsType
+WHERE    tblStsDlyArHist.uploadDate between '2015-01-01' and '2015-03-31'
+and tblStsDlyArHist.strCode in (
+select strnum from sql_mmpgtlib..tblstr where stshrt in 
+('DBAJR','TAGEX','CONJR','PANEX','TAYJR','PROJR','AMPEX','PHIEX','VISPC','GBAEX','STEEX','AHIEX','ANTEX','DCAJR','KALJR','HABJR','TALJR')
+)
+and tblTransType.typePrefix + CAST(tblStsDlyArHist.stsNo AS nvarchar) + '-' + CAST(tblStsDlyArHist.stsSeq AS nvarchar) in (
+'ST3367371-1',
+'ST3367373-1',
+'ST3367374-1',
+'ST3367566-1',
+'ST3367567-1',
+'ST3367568-1',
+'ST3367570-1',
+'ST3367571-1',
+'ST3367572-1',
+'ST3367573-1',
+'ST3367574-1',
+'ST3367576-1',
+'ST3367577-1',
+'ST3367834-1',
+'ST3367835-1',
+'ST3367836-1',
+'ST3367837-1',
+'ST3367838-1',
+'ST3367839-1',
+'ST3367840-1',
+'ST3368059-1',
+'ST3368060-1',
+'ST3368062-1',
+'ST3368064-1',
+'ST3368065-1',
+'ST3368066-1',
+'ST3368067-1',
+'ST3368068-1',
+'ST3368069-1',
+'ST3368071-1',
+'ST3368072-1',
+'ST3368270-1',
+'ST3368271-1',
+'ST3368272-1',
+'ST3368273-1',
+'ST3368274-1',
+'ST3368275-1',
+'ST3368276-1',
+'ST3368277-1',
+'ST3368278-1'
+)
+
+select * from tblStsDlyArHist

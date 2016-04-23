@@ -1,0 +1,16 @@
+create table data8vscrm_tbl_users__
+(
+userId int identity(1,1),
+strCode varchar(3),
+grpCode varchar(3),
+userName nvarchar(50),
+userPass nvarchar(50),
+pages text,
+userLevel int,
+dateEnt datetime,
+dateUpdt datetime,
+userStat char(1),
+fullName varchar(100),
+ipAddress varchar(50),
+log char(1)
+)

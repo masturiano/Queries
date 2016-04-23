@@ -1,0 +1,30 @@
+SELECT RA_CUSTOMER_TRX_ALL.ORG_ID,
+  RA_CUSTOMER_TRX_ALL.CREATION_DATE,
+  HZ_CUST_ACCOUNTS.ACCOUNT_NUMBER,
+  ra_customer_trx_lines_all.DESCRIPTION
+FROM RA_CUSTOMER_TRX_ALL
+LEFT JOIN ra_customer_trx_lines_all
+ON ra_customer_trx_lines_all.CUSTOMER_TRX_ID = RA_CUSTOMER_TRX_ALL.CUSTOMER_TRX_ID
+INNER JOIN ar_payment_schedules_all
+ON RA_CUSTOMER_TRX_ALL.TRX_NUMBER = ar_payment_schedules_all.TRX_NUMBER
+INNER JOIN HZ_CUST_ACCOUNTS
+ON ar_payment_schedules_all.CUSTOMER_ID          = HZ_CUST_ACCOUNTS.CUST_ACCOUNT_ID
+and ar_payment_schedules_all.org_id = ra_customer_trx_lines_all.org_id
+
+WHERE RA_CUSTOMER_TRX_ALL.TRX_NUMBER             = 'EATUB-15-8306'
+AND RA_CUSTOMER_TRX_ALL.INTERFACE_HEADER_CONTEXT = 'ATUB'
+
+select * from HZ_CUST_SITE_USES_ALL where rownum <= 100
+
+INNEr join HZ_CUST_ACCT_SITES_ALL on HZ_CUST_ACCOUNTS.CUST_ACCOUNT_ID = HZ_CUST_ACCT_SITES_ALL.CUST_ACCOUNT_ID
+INNEr join HZ_CUST_SITE_USES_ALL on HZ_CUST_ACCT_SITES_ALL.CUST_ACCT_SITE_ID = HZ_CUST_SITE_USES_ALL.CUST_ACCT_SITE_ID
+
+select * from ra_customer_trx_lines_all where rownum < 100 customer_trx_line_id,customer_trx_id
+select * from HZ_CUST_SITE_USES_ALL where rownum < 100 cust_acct_site_id,site_use_id
+select * from HZ_CUST_ACCT_SITES_ALL where rownum < 100 
+select * from RA_CUSTOMER_TRX_ALL where rownum < 100 customer_trx_id
+select * from  ar_payment_schedules_all where rownum < 100 customer_site_use_id
+
+
+left join ra_customer_trx_lines_all on ra_customer_trx_lines_all.customer_trx_id = RA_CUSTOMER_TRX_ALL.customer_trx_id
+left join HZ_CUST_SITE_USES_ALL on ar_payment_schedules_all.customer_site_use_id = HZ_CUST_ACCT_SITES_ALL.cust_acct_site_id

@@ -1,0 +1,55 @@
+SELECT 
+tblStsHdr.suppCode,  
+sql_mmpgtlib.dbo.APSUPP.ASNAME AS suppName, 
+tblStsDtl.stsNo,    
+tblBranches.brndesc,
+--tblStsDtl.stsRefno, 
+tblStsDtl.stsAmt, 
+tblStsHdr.dateApproved
+--tblStsHdr.applyDate
+--tblStsHdr.nbrApplication, 
+--tblBranches.brnShortDesc, 
+--tblStsHierarchy.hierarchyDesc, 
+--tblStsHdr.stsRemarks, 
+--tblStsHdr.stsPaymentMode, 
+--tblUsers.fullName, 
+--tblStsDaDetail.contractNo, 
+--tblUsers_1.fullName AS approvedBy, 
+--tblStsHdr.dateEntered, 
+--tblStsHdr.cancelDate, 
+--tblStsDtl.dtlStatus, 
+--tblStsDtl.strCode, 
+--tblStsHdr.endDate as endDateApp5
+--DATEADD(month, tblStsHdr.nbrApplication, tblStsHdr.applyDate) AS endDate, 
+--payMode = CASE tblStsHdr.stsPaymentMode WHEN 'C' THEN 'Collection/Check' ELSE 'Invoice Deduction' END,  			tblStsHdr.stsType
+FROM         tblStsDtl INNER JOIN
+									tblStsHdr ON tblStsDtl.stsRefno = tblStsHdr.stsRefno LEFT OUTER JOIN
+									tblStsDaDetail ON tblStsDtl.stsRefno = tblStsDaDetail.stsRefno AND tblStsDtl.stsNo = tblStsDaDetail.stsNo INNER JOIN
+									tblBranches ON tblStsDtl.compCode = tblBranches.compCode AND tblStsDtl.strCode = tblBranches.strCode INNER JOIN
+									tblStsHierarchy ON tblStsHdr.stsDept = tblStsHierarchy.stsDept INNER JOIN
+									tblUsers ON tblStsHdr.enteredBy = tblUsers.userId INNER JOIN
+									sql_mmpgtlib.dbo.APSUPP ON tblStsHdr.suppCode = sql_mmpgtlib.dbo.APSUPP.ASNUM INNER JOIN
+									tblUsers tblUsers_1 ON tblStsHdr.approvedBy = tblUsers_1.userId 
+WHERE tblStsDtl.stsNo in (
+'144611',
+'144612',
+'144613',
+'144595',
+'144596',
+'144597',
+'144598',
+'144599',
+'144600',
+'144601',
+'144602',
+'144604',
+'144603',
+'144605',
+'144606',
+'144609',
+'144610',
+'144607',
+'144608'
+) 
+and tblStsHierarchy.levelCode = 1
+order by stsNo

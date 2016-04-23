@@ -1,0 +1,8 @@
+SELECT TOP 100 PERCENT  CAST(
+isnull(cast(cCardNumber as varchar(MAX)),'')+'|'+
+isnull(cast(cCustFullName as varchar(MAX)),'')+'|'+
+isnull(cast(iPoints as varchar(MAX)),'')+'|'+
+isnull(cast(CONVERT(CHAR(19),CONVERT(DATETIME,dLastTranDate,101),120)as varchar(MAX)),'')+'|'+
+isnull(cast(lastName as varchar(MAX)),'')+'|' AS text) as result
+from tblTnapPerksPoints 
+where iPoints > .00

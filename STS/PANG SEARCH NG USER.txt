@@ -1,0 +1,21 @@
+select * from tblUsers
+where 
+fullName like '%rivera%'
+or fullName like '%agnes%'
+or fullName like '%licay%'
+or fullName like '%tayao%'
+or fullName like '%corpuz%'
+or fullName like '%badiola%'
+or fullName like '%molina%'
+or fullName like '%chan%'
+
+select userName,userName as password,fullName from tblUsers
+where 
+fullName like '%rivera%'
+or fullName like '%agnes%'
+or fullName like '%licay%'
+or fullName like '%tayao%'
+or fullName like '%corpuz%'
+or fullName like '%badiola%'
+or fullName like '%molina%'
+or fullName like '%chan%'

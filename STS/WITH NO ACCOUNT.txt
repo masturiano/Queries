@@ -1,0 +1,42 @@
+select stsRefno,stsRemarks from tblStsHdr where stsrefno = '40707'
+
+SELECT     tblStsDtl.strCode, tblStsDtl.stsAmt, tblStsDtl.stsNo, tblStsHdr.stsRemarks, tblStsDtl.stsRefno
+FROM         tblStsDtl INNER JOIN
+tblStsHdr ON tblStsDtl.stsRefno = tblStsHdr.stsRefno WHERE tblStsDtl.stsRefno = '40719'
+
+------------------------------------
+SELECT     tblStsDlyAr.stsNo, tblStsDlyAr.stsSeq, tblStsDlyAr.stsApplyDate, tblStsDlyAr.stsActualDate, tblStsDlyAr.suppCode, tblStsDlyAr.stsApplyAmt, tblStsDlyAr.compCode, 
+tblStsHierarchy.glMajor, tblStsHierarchy.glMinor, tblBranches.brnShortName, tblBranches.businessLine, tblBranches.compCodeHO, tblStsHdr.applyDate,  tblStsHierarchy.hierarchyDesc, tblStsDlyAr.strCode, tblStsDlyAr.stsType, tblStsDlyAr.stsVatAmt, tblStsDlyAr.stsEwtAmt, tblBranches.ewtLoc,tblStsHierarchy.shortDesc, ISNULL(tblStsHdr.stsRemarks, tblStsDlyAr.stsRemarks) AS stsRemarks, tblStsHdr.vatTag, tblStsHierarchy.orGlMajor, tblStsHierarchy.orGlMinor,tblStsHierarchy.wOr
+FROM         tblStsDlyAr LEFT OUTER JOIN
+tblStsHdr ON tblStsDlyAr.stsRefno = tblStsHdr.stsRefno INNER JOIN
+tblStsHierarchy ON tblStsDlyAr.stsDept = tblStsHierarchy.stsDept AND tblStsDlyAr.stsCls = tblStsHierarchy.stsCls AND 
+tblStsDlyAr.stsSubCls = tblStsHierarchy.stsSubCls INNER JOIN
+tblBranches ON tblStsDlyAr.strCode = tblBranches.strCode
+WHERE ((CAST(tblStsDlyAr.stsNo AS nvarchar) + '-' + CAST(tblStsDlyAr.stsSeq AS nvarchar)) IN (
+'3371002-3'
+))
+
+
+SELECT     tblStsDlyArHist.stsNo, tblStsDlyArHist.stsSeq, tblStsDlyArHist.stsApplyDate, tblStsDlyArHist.stsActualDate, tblStsDlyArHist.suppCode, tblStsDlyArHist.stsApplyAmt, tblStsDlyArHist.compCode, 
+tblStsHierarchy.glMajor, tblStsHierarchy.glMinor, tblBranches.brnShortName, tblBranches.businessLine, tblBranches.compCodeHO, tblStsHdr.applyDate,  tblStsHierarchy.hierarchyDesc, tblStsDlyArHist.strCode, tblStsDlyArHist.stsType, tblStsDlyArHist.stsVatAmt, tblStsDlyArHist.stsEwtAmt, tblBranches.ewtLoc,tblStsHierarchy.shortDesc, ISNULL(tblStsHdr.stsRemarks, tblStsDlyArHist.stsRemarks) AS stsRemarks, tblStsHdr.vatTag, tblStsHierarchy.orGlMajor, tblStsHierarchy.orGlMinor,tblStsHierarchy.wOr
+,tblStsDlyArHist.stsDept,tblStsDlyArHist.stsCls,tblStsDlyArHist.stsSubCls
+FROM         tblStsDlyArHist LEFT OUTER JOIN
+tblStsHdr ON tblStsDlyArHist.stsRefno = tblStsHdr.stsRefno INNER JOIN
+tblStsHierarchy ON tblStsDlyArHist.stsDept = tblStsHierarchy.stsDept AND tblStsDlyArHist.stsCls = tblStsHierarchy.stsCls AND 
+tblStsDlyArHist.stsSubCls = tblStsHierarchy.stsSubCls INNER JOIN
+tblBranches ON tblStsDlyArHist.strCode = tblBranches.strCode
+WHERE ((CAST(tblStsDlyArHist.stsNo AS nvarchar) + '-' + CAST(tblStsDlyArHist.stsSeq AS nvarchar)) IN (
+'3371002-3','3371002-2','3371002-1'
+))
+and (tblStsHierarchy.orGlMajor is null or tblStsHierarchy.orGlMinor is null)
+
+(tblstsdlyar.compCode = '{$valAr['compCode']}') AND (tblStsDlyAr.suppCode NOT IN
+(SELECT     suppCode
+FROM          check_AR)) AND (tblStsDlyAr.suppCode NOT IN
+(SELECT     ASNUM
+FROM          sql_mmpgtlib..APSUPP
+WHERE      (ASNAME LIKE '%NTBU%')) OR
+tblStsDlyAr.suppCode NOT IN
+(SELECT     ADNUM
+FROM          sql_mmpgtlib..APSUPA
+WHERE      (ADSTS = 'I')))

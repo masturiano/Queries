@@ -1,0 +1,26 @@
+SELECT     tblStsApply.stsType, tblStsApply.stsNo, tblStsApply.stsApplyAmt, tblBranches.brnDesc, sql_mmpgtlib.dbo.APSUPP.ASNAME AS suppName, tblStsApply.stsSeq, 
+tblStsApply.stsApplyDate, tblStsApply.stsRefno, tblStsHdr.nbrApplication, tblStsHdr.enteredBy, tblStsHdr.stsRemarks, tblStsDlyApHist.apBatch, tblStsApply.stsVatAmt,
+tblStsDlyArHist.arBatch, tblStsApply.stsPaymentMode, payMode = CASE tblStsHdr.stsPaymentMode WHEN 'C' THEN 'Collection/Check' ELSE 'Invoice Deduction' END, 
+applyStatus = CASE tblStsApply.status WHEN NULL THEN 'ONQUEUE' ELSE 'APPLIED' END
+FROM         tblStsApply INNER JOIN
+tblBranches ON tblStsApply.compCode = tblBranches.compCode AND tblStsApply.strCode = tblBranches.strCode INNER JOIN
+sql_mmpgtlib.dbo.APSUPP ON tblStsApply.suppCode = sql_mmpgtlib.dbo.APSUPP.ASNUM LEFT OUTER JOIN
+tblStsDlyApHist ON tblStsApply.stsNo = tblStsDlyApHist.stsNo AND tblStsApply.stsSeq = tblStsDlyApHist.stsSeq AND 
+tblStsApply.stsRefno = tblStsDlyApHist.stsRefno LEFT OUTER JOIN
+tblStsDlyArHist ON tblStsApply.stsNo = tblStsDlyArHist.stsNo AND tblStsApply.stsSeq = tblStsDlyArHist.stsSeq AND 
+tblStsApply.stsRefno = tblStsDlyArHist.stsRefno LEFT OUTER JOIN
+tblStsHdr ON tblStsApply.stsRefno = tblStsHdr.stsRefno
+left join tblStsHdr on tblStsHdr.stsRefno = tblStsApply.stsRefno
+and tblStsHdr.stsDept = tblStsApply.stsDept
+and tblStsHdr.stsCls = tblStsApply.stsCls
+and tblStsHdr.stsSubCls = tblStsApply.stsSubCls
+
+select top 10 * from tblStsApply
+left join tblStsHdr on tblStsHdr.stsRefno = tblStsApply.stsRefno
+and tblStsHdr.stsDept = tblStsApply.stsDept
+and tblStsHdr.stsCls = tblStsApply.stsCls
+and tblStsHdr.stsSubCls = tblStsApply.stsSubCls
+
+select top 10 * from tblStsDlyApHist
+select top 10 * from tblStsHdr
+

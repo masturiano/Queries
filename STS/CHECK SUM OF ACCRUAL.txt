@@ -1,0 +1,35 @@
+SELECT     sum(dbo.tblStsDlyApHist.stsApplyAmt)
+FROM         dbo.tblStsDlyApHist INNER JOIN
+dbo.tblStsHierarchy ON dbo.tblStsDlyApHist.stsDept = dbo.tblStsHierarchy.stsDept AND dbo.tblStsDlyApHist.stsCls = dbo.tblStsHierarchy.stsCls AND 
+dbo.tblStsDlyApHist.stsSubCls = dbo.tblStsHierarchy.stsSubCls
+WHERE     (dbo.tblStsDlyApHist.stsApplyDate BETWEEN '4/1/2015' AND '4/30/2015') AND (dbo.tblStsDlyApHist.uploadDate >= '5/1/2015')
+and dbo.tblStsDlyApHist.compCode in (101,102,103,104,105,801,802,803,804,805,806,807,808)
+---791513.35
+--- April = -6145590.32
+
+SELECT     sum(dbo.tblStsDlyApHist.stsApplyAmt)
+FROM         dbo.tblStsDlyApHist INNER JOIN
+dbo.tblStsHierarchy ON dbo.tblStsDlyApHist.stsDept = dbo.tblStsHierarchy.stsDept AND dbo.tblStsDlyApHist.stsCls = dbo.tblStsHierarchy.stsCls AND 
+dbo.tblStsDlyApHist.stsSubCls = dbo.tblStsHierarchy.stsSubCls
+WHERE     (dbo.tblStsDlyApHist.stsApplyDate BETWEEN '4/1/2015' AND '4/30/2015') AND (dbo.tblStsDlyApHist.uploadDate >= '5/1/2015')
+and dbo.tblStsDlyApHist.compCode = 700
+---88078.68
+--- April = -943940.16
+
+SELECT     sum(dbo.tblStsDlyApHist.stsApplyAmt)
+FROM         dbo.tblStsDlyApHist INNER JOIN
+dbo.tblStsHierarchy ON dbo.tblStsDlyApHist.stsDept = dbo.tblStsHierarchy.stsDept AND dbo.tblStsDlyApHist.stsCls = dbo.tblStsHierarchy.stsCls AND 
+dbo.tblStsDlyApHist.stsSubCls = dbo.tblStsHierarchy.stsSubCls
+WHERE     (dbo.tblStsDlyApHist.stsApplyDate BETWEEN '4/1/2015' AND '4/30/2015') AND (dbo.tblStsDlyApHist.uploadDate >= '5/1/2015')
+and dbo.tblStsDlyApHist.compCode = 302
+---38963.73
+--- April = -29497.37
+
+SELECT     sum(dbo.tblStsDlyApHist.stsApplyAmt)
+FROM         dbo.tblStsDlyApHist INNER JOIN
+dbo.tblStsHierarchy ON dbo.tblStsDlyApHist.stsDept = dbo.tblStsHierarchy.stsDept AND dbo.tblStsDlyApHist.stsCls = dbo.tblStsHierarchy.stsCls AND 
+dbo.tblStsDlyApHist.stsSubCls = dbo.tblStsHierarchy.stsSubCls
+WHERE     (dbo.tblStsDlyApHist.stsApplyDate BETWEEN '4/1/2015' AND '4/30/2015') AND (dbo.tblStsDlyApHist.uploadDate >= '5/1/2015')
+and dbo.tblStsDlyApHist.compCode = 809
+
+----45876.08

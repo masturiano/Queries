@@ -1,0 +1,8 @@
+select * from tblStsDtl where stsRefno = '46633'
+update tblStsDtl set stsNo = NULL, dtlStatus = 'O' WHERE stsRefno = '46633' 
+
+select * from tblStsDaDetail where stsRefno = '46633'
+update tblStsDaDetail SET stsNo  = NULL, contractNo = NULL WHERE stsRefno = '46633' 
+
+
+select * from tblStsHdr where stsRefno = '46633'

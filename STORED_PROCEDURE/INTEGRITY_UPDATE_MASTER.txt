@@ -1,0 +1,38 @@
+
+-- BUSINESS LINE
+
+IF OBJECT_ID('INVADIx1', 'U') IS NOT NULL
+BEGIN
+DROP TABLE INVADIx1
+END
+BEGIN
+select * into INVADIx1 from openquery(pgjda, 'select * from mm760lib.INVADIx1') 
+END
+-- STORE'S
+
+IF OBJECT_ID('TBLSTR', 'U') IS NOT NULL
+BEGIN
+DROP TABLE TBLSTR
+END
+BEGIN
+select * into TBLSTR from openquery(pgjda, 'select * from mm760lib.TBLSTR') 
+END
+-- SUPPLIER'S
+
+IF OBJECT_ID('APSUPP', 'U') IS NOT NULL
+BEGIN
+DROP TABLE APSUPP
+END
+BEGIN
+select * into APSUPP from openquery(pgjda, 'select * from mm760lib.APSUPP') 
+END
+-- CUSTOMER'S
+
+IF OBJECT_ID('CIMCUS', 'U') IS NOT NULL
+BEGIN
+DROP TABLE CIMCUS
+END
+BEGIN
+select * into CIMCUS from openquery(pgjda, 'select * from mm760lib.CIMCUS') 
+END
+
